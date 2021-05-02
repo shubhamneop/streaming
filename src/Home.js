@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Carousel from "./Carousel";
+import { connect } from "react-redux";
 
-function Home() {
-  const [videos, setVideos] = useState([]);
-
+export function getImage(videoid) {
+  return `http://localhost:5000/api/playvideo?filename=${videoid}`;
+}
+function Home(props) {
+  const { videos } = props;
   useEffect(() => {
     var url = "http://localhost:5000/api/allassets";
     axios
       .get(url)
       .then((response) => {
         if (response.data?.videos) {
-          setVideos(response.data?.videos);
+          props.dispatch({
+            type: "VIDEOS",
+            payload: response.data.videos,
+          });
         }
       })
       .catch((error) => console.log(error));
   }, []);
 
-  function getImage(videoid) {
-    return `http://localhost:5000/api/playvideo?filename=${videoid}`;
-  }
   return (
     <>
       <Carousel />
@@ -71,4 +74,8 @@ function Home() {
   );
 }
 
-export default Home;
+export default connect(function (state, props) {
+  return {
+    videos: state?.videos,
+  };
+})(withRouter(Home));

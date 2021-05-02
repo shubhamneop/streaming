@@ -97,3 +97,8 @@ code {
 .video-border {
   margin-top: 10px;
 }
+
+.play-other {
+  border: 5px solid gray;
+  margin-bottom: 8px;
+}
