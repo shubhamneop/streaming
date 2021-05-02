@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useParams, withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getImage } from "./Home";
+import { playvideo, mainurl } from "./api";
 
 function Play(props) {
   let params = useParams();
 
   const videoid = atob(params.videoid);
 
-  const videourl = `http://localhost:5000/api/playvideo?filename=${videoid}`;
+  const videourl = `${mainurl}${playvideo}${videoid}`;
 
   const [randomVideo, setrandomVideo] = useState([]);
 
@@ -44,7 +45,7 @@ function Play(props) {
                 <Link to={"/play/" + btoa(video)}>
                   <div className="play-other">
                     <video
-                      style={{ width: "500px", height: "200px" }}
+                      style={{ width: "400px", height: "200px" }}
                       key={Math.random().toString()}
                     >
                       <source

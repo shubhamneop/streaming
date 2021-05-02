@@ -9,15 +9,17 @@ import Play from "./Play";
 import Home from "./Home";
 import Navbar from "./Navbar";
 import { useEffect } from "react";
-import axios from "axios";
+import axios, { allassets } from "./api";
 import { useDispatch } from "react-redux";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    var url = "http://localhost:5000/api/allassets";
+    var title = "Shubham`s";
+    document.title = `${title} Stream App`;
+
     axios
-      .get(url)
+      .get(allassets)
       .then((response) => {
         if (response.data?.videos) {
           dispatch({
@@ -28,6 +30,7 @@ function App() {
       })
       .catch((error) => console.log(error));
   }, []);
+  console.log("env", process.env.NODE_ENV);
   return (
     <>
       <Router>

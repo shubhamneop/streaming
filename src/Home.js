@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
-import axios from "axios";
+import axios, { allassets, playvideo, mainurl } from "./api";
 import { Link, withRouter } from "react-router-dom";
 import Carousel from "./Carousel";
 import { connect } from "react-redux";
 
 export function getImage(videoid) {
-  return `http://localhost:5000/api/playvideo?filename=${videoid}`;
+  return `${mainurl}${playvideo}${videoid}`;
 }
 function Home(props) {
   const { videos } = props;
   useEffect(() => {
-    var url = "http://localhost:5000/api/allassets";
     axios
-      .get(url)
+      .get(allassets)
       .then((response) => {
         if (response.data?.videos) {
           props.dispatch({
@@ -26,7 +25,7 @@ function Home(props) {
 
   return (
     <>
-      <Carousel />
+      <Carousel key={Math.random().toString()} />
       <div className="row" key={Math.random().toString()}>
         {videos?.length > 0
           ? videos.map((video) => {
