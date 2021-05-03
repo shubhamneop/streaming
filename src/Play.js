@@ -21,24 +21,39 @@ function Play(props) {
     var random = shuffled.slice(0, 4);
     setrandomVideo(random);
   }, [props.videos, videoid]);
+  const onEnd = () => {
+    if (randomVideo && randomVideo[0]) {
+      props.history.push(`/play/${btoa(randomVideo[0])}`);
+    }
+  };
   return (
     <>
       <div className="row">
-        <div className="video-border col-md-8" key={Math.random().toString()}>
-          <video
-            className="video-cust"
-            controls
-            autoPlay="true"
-            key={Math.random().toString()}
-          >
-            <source src={videourl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <h2 style={{ display: "flex", justifyContent: "space-around" }}>
-            {videoid.replace(".mp4", "")}
-          </h2>
+        <div className="col-md-8" key={Math.random().toString()}>
+          <div className="video-border" key={Math.random().toString()}>
+            <video
+              className="video-cust"
+              controls
+              autoPlay="true"
+              onEnded={onEnd}
+              key={Math.random().toString()}
+            >
+              <source src={videourl} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <h2
+              style={{ display: "flex", justifyContent: "space-around" }}
+              key={Math.random().toString()}
+            >
+              {videoid.replace(".mp4", "")}
+            </h2>
+          </div>
         </div>
-        <div className="col-md-4" style={{ marginTop: "10px" }}>
+        <div
+          className="col-md-4"
+          style={{ marginTop: "10px" }}
+          key={Math.random().toString()}
+        >
           {randomVideo?.length > 0 &&
             randomVideo.map((video) => {
               return (

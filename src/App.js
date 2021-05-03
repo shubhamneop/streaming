@@ -17,6 +17,7 @@ function App() {
   useEffect(() => {
     var title = "Shubham`s";
     document.title = `${title} Stream App`;
+    dispatch({ type: "VIDEO_INIT" });
 
     axios
       .get(allassets)
@@ -26,11 +27,13 @@ function App() {
             type: "VIDEOS",
             payload: response.data.videos,
           });
+        } else {
+          dispatch({ type: "VIDEO_FAIL" });
         }
       })
       .catch((error) => console.log(error));
   }, []);
-  console.log("env", process.env.NODE_ENV);
+
   return (
     <>
       <Router>
