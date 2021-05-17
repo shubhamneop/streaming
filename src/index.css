@@ -90,10 +90,16 @@ code {
   margin-top: 14px;
   margin: auto;
   position: relative;
-  left: 25%;
+  left: 5px;
   border: 10px solid;
+  max-width: 850px;
 }
 
 .video-border {
   margin-top: 10px;
+}
+
+.play-other {
+  border: 5px solid gray;
+  margin-bottom: 8px;
 }
